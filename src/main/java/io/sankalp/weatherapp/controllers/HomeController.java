@@ -10,4 +10,10 @@ public class HomeController {
     public String home() {
         return "We are the one stop solution for all your weather data needs...";
     }
+
+    @GetMapping("/weatherData")
+    public String getWeatherData () {
+        return "Temperature is 30°C";
+    }
+
 }
