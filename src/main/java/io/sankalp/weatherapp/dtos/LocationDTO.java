@@ -1,5 +1,8 @@
 package io.sankalp.weatherapp.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LocationDTO {
     private String name;
     private String country;
