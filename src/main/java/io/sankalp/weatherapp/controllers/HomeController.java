@@ -3,8 +3,11 @@ package io.sankalp.weatherapp.controllers;
 import io.sankalp.weatherapp.constants.WeatherAppConstants;
 import io.sankalp.weatherapp.dtos.WeatherDataDTO;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
 
 @RestController
 public class HomeController {
@@ -15,7 +18,7 @@ public class HomeController {
     }
 
     @GetMapping("/weatherData")
-    public WeatherDataDTO getWeatherData () {
+    public WeatherDataDTO getWeatherData (@RequestParam Map<String, String> queryParameters) {
         RestTemplate restTemplate = new RestTemplate();
         final String url = new StringBuilder(WeatherAppConstants.HTTP)
                                 .append(WeatherAppConstants.COLON)
@@ -25,9 +28,10 @@ public class HomeController {
                                 .append(WeatherAppConstants.QUESTION_MARK)
                                 .append("access_key=00b6206edd9920600c21b9bea7e627a0")
                                 .append(WeatherAppConstants.AMPERSAND)
-                                .append("query=Jalandhar")
+                                .append("query")
+                                .append(WeatherAppConstants.EQUALS)
+                                .append(queryParameters.get("cityName"))
                                 .toString();
-        System.out.println (url);
         return restTemplate.getForObject(url, WeatherDataDTO.class);
     }
 
