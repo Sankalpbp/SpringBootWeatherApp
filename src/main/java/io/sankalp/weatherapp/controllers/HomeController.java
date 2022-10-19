@@ -1,5 +1,6 @@
 package io.sankalp.weatherapp.controllers;
 
+import io.sankalp.weatherapp.constants.WeatherAppConstants;
 import io.sankalp.weatherapp.dtos.WeatherDataDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,18 @@ public class HomeController {
     @GetMapping("/weatherData")
     public WeatherDataDTO getWeatherData () {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject("http://api.weatherstack.com/current?access_key=1033c76d0c1530af36960575ab2b03a8&query=Jalandhar", WeatherDataDTO.class);
+        final String url = new StringBuilder(WeatherAppConstants.HTTP)
+                                .append(WeatherAppConstants.COLON)
+                                .append(WeatherAppConstants.SLASH)
+                                .append(WeatherAppConstants.SLASH)
+                                .append("api.weatherstack.com/current")
+                                .append(WeatherAppConstants.QUESTION_MARK)
+                                .append("access_key=00b6206edd9920600c21b9bea7e627a0")
+                                .append(WeatherAppConstants.AMPERSAND)
+                                .append("query=Jalandhar")
+                                .toString();
+        System.out.println (url);
+        return restTemplate.getForObject(url, WeatherDataDTO.class);
     }
 
 }
