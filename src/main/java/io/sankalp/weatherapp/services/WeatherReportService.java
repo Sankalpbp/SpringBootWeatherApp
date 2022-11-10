@@ -2,14 +2,17 @@ package io.sankalp.weatherapp.services;
 
 import io.sankalp.weatherapp.constants.WeatherAppConstants;
 import io.sankalp.weatherapp.dtos.ResponseDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
 public class WeatherReportService {
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     public ResponseDTO getWeatherData (final String cityName) {
-        RestTemplate restTemplate = new RestTemplate();
         final String url = new StringBuilder(WeatherAppConstants.HTTP)
                 .append(WeatherAppConstants.COLON)
                 .append(WeatherAppConstants.SLASH)
