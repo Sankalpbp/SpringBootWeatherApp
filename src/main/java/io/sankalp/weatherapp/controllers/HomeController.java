@@ -1,7 +1,7 @@
 package io.sankalp.weatherapp.controllers;
 
 import io.sankalp.weatherapp.constants.WeatherAppConstants;
-import io.sankalp.weatherapp.dtos.WeatherDataDTO;
+import io.sankalp.weatherapp.dtos.ResponseDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +18,7 @@ public class HomeController {
     }
 
     @GetMapping("/weatherData")
-    public WeatherDataDTO getWeatherData (@RequestParam Map<String, String> queryParameters) {
+    public ResponseDTO getWeatherData (@RequestParam Map<String, String> queryParameters) {
         RestTemplate restTemplate = new RestTemplate();
         final String url = new StringBuilder(WeatherAppConstants.HTTP)
                                 .append(WeatherAppConstants.COLON)
@@ -32,7 +32,8 @@ public class HomeController {
                                 .append(WeatherAppConstants.EQUALS)
                                 .append(queryParameters.get("cityName"))
                                 .toString();
-        return restTemplate.getForObject(url, WeatherDataDTO.class);
+        final ResponseDTO response = restTemplate.getForObject(url, ResponseDTO.class);
+        return restTemplate.getForObject(url, ResponseDTO.class);
     }
 
 }
